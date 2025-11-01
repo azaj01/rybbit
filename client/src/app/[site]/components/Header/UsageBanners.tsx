@@ -53,7 +53,7 @@ export function UsageBanners() {
   }
 
   // Approaching limit (90-100%)
-  if (usagePercentage <= 90) {
+  if (usagePercentage >= 90) {
     return (
       <div className="mt-4 px-4 py-3 rounded-lg border border-amber-200 dark:border-amber-400/30 bg-amber-50/80 dark:bg-amber-900/20 text-sm flex gap-4 items-center">
         <AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400 flex-shrink-0" />
