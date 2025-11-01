@@ -44,6 +44,7 @@ import { ServiceUsageChart } from "../shared/ServiceUsageChart";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import { CopyText } from "../../../../components/CopyText";
 
 export function Organizations() {
   const router = useRouter();
@@ -507,6 +508,7 @@ export function Organizations() {
                       <TableCell colSpan={columns.length} className="bg-neutral-900 py-4 px-8">
                         <div className="space-y-6">
                           {/* Subscription Details */}
+                          <CopyText text={row.original.id}></CopyText>
                           <div>
                             <div className="flex items-center gap-2 text-sm font-semibold mb-3">
                               <CreditCard className="h-4 w-4" />
@@ -592,25 +594,28 @@ export function Organizations() {
                                     key={member.userId}
                                     className="p-3 border border-neutral-700 rounded flex items-center justify-between"
                                   >
-                                    <div>
+                                    <div className="flex flex-col gap-1">
                                       <div className="font-medium flex items-center gap-2">
                                         {member.name}{" "}
                                         <Badge variant="outline" className="text-xs">
                                           {member.role}
                                         </Badge>
                                       </div>
-                                      <div className="text-sm text-neutral-400">{member.email}</div>
+                                      <div className="text-sm text-neutral-200">{member.email}</div>
+                                      <div className="text-xs text-neutral-400">
+                                        <CopyText text={member.userId} className="text-xs"></CopyText>
+                                      </div>
+                                      <Button
+                                        onClick={() => handleImpersonate(member.userId)}
+                                        size="sm"
+                                        variant="outline"
+                                        className="flex items-center gap-1"
+                                        disabled={member.userId === userStore.getState().user?.id}
+                                      >
+                                        <UserCheck className="h-3 w-3" />
+                                        Impersonate
+                                      </Button>
                                     </div>
-                                    <Button
-                                      onClick={() => handleImpersonate(member.userId)}
-                                      size="sm"
-                                      variant="outline"
-                                      className="flex items-center gap-1"
-                                      disabled={member.userId === userStore.getState().user?.id}
-                                    >
-                                      <UserCheck className="h-3 w-3" />
-                                      Impersonate
-                                    </Button>
                                   </div>
                                 ))}
                               </div>
